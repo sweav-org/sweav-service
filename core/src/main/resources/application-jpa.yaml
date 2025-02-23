@@ -1,0 +1,51 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        storage_engine: innodb
+        connection:
+          characterEncoding: utf-8
+          useUnicode: true
+          CharSet: utf-8
+        jdbc:
+          time_zone: Asia/Seoul
+          batch_size: 100
+        use_sql_comments: true
+        show_sql: false
+        format_sql: false
+      org:
+        hibernate:
+          envers:
+            audit_table_suffix: _AUDIT_LOG
+    show-sql: false
+    open-in-view: off
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: false
+---
+spring:
+  config.activate.on-profile: test, local
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
+---
+spring:
+  config.activate.on-profile: dev
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+---
+spring:
+  config.activate.on-profile: dev, prod
+  jpa:
+    hibernate:
+      ddl-auto: validate
